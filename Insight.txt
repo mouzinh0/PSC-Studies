@@ -1,0 +1,15 @@
+Exemplo de compilação:
+
+$ gcc main.c -o main -g
+
+Exemplo de invocação do Insight:
+
+$ insight main
+
+ No caso de um programa com argumentos que normalmente seria invocado assim:
+
+ $ csv -f 2 Lisboa -o stock_lisboa.csv stock.csv
+
+ Pode ser invocado assim, utilizando opção -args do Insight:
+
+ $ insight –args csv -f 2 Lisboa -o stock_lisboa.csv stock.csv
