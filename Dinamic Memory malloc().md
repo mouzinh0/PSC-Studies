@@ -1,7 +1,7 @@
 * A função malloc() (memory allocation) é usada em C para alocar dinamicamente memória em tempo de execução.
   Ela permite que o programa reserve blocos de memória do heap, em vez de usar a memória da stack, que é geralmente mais limitada e usada para variáveis locais.
 
-#### Como o malloc() funciona:
+### Como o malloc() funciona:
 
 * A função malloc() recebe como argumento o tamanho em bytes da memória que você deseja alocar e retorna um ponteiro para o primeiro byte
    do bloco de memória alocado.
@@ -14,7 +14,7 @@ void *malloc(size_t size);
 > int *array = (int *) malloc(10 * sizeof(int));
 > Aqui, malloc aloca memória suficiente para armazenar 10 inteiros.
 
-#### Vantagens da memória dinâmica com malloc():
+### Vantagens da memória dinâmica com malloc():
 
 ##### Alocação de memória em tempo de execução:
 
@@ -37,7 +37,7 @@ void *malloc(size_t size);
 * Com malloc(), você tem controle sobre quando a memória é alocada e quando é liberada. Para liberar a memória, usa-se a função free()
 
 
-#### Desvantagens de malloc() em comparação com buffers estáticos:
+### Desvantagens de malloc() em comparação com buffers estáticos:
 
 * Necessidade de gerenciamento manual de memória:
   - A memória alocada por malloc() não é liberada automaticamente.
