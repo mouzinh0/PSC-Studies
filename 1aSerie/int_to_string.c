@@ -4,7 +4,6 @@
 size_t int_to_string(unsigned value, int base, char buffer[], size_t buffer_size) {
 
     if (base != 2 && base != 8 && base != 10 && base != 16) {
-        printf("Base %d nao faz parte\n", base);
         return 0;
     }
 
@@ -14,10 +13,66 @@ size_t int_to_string(unsigned value, int base, char buffer[], size_t buffer_size
     unsigned temp = value;
     int prefix_len = 0; 
 
+    // No space
+   if (buffer_size == 0) {
+        return 0;  
+    }
+
+    // Zero is a problem to fix no need to calc
+    if (value == 0) {
+            if (base == 2) {
+                if (buffer_size >= 4) {
+                    buffer[0] = '0';
+                    buffer[1] = 'b';
+                    buffer[2] = '0';
+                    buffer[3] = '\0';
+                    return 3;
+                }
+            } else if (base == 16) {
+                if (buffer_size >= 3) {
+                    buffer[0] = '0';
+                    buffer[1] = 'x';
+                    buffer[2] = '0';
+                    buffer[3] = '\0';
+                    return 3;
+                }
+            } else {
+                if (buffer_size >= 2) {
+                    buffer[0] = '0';
+                    buffer[1] = '\0';
+                    return 1;
+                }
+            }
+            return 0; 
+        }
+
     // String size calc
     while (temp > 0) {
         temp = temp / base;  
         size++;
+    }
+
+        
+    if (base == 2 || base == 16) {
+        prefix_len = 2;
+    } else if (base == 8) {
+        prefix_len = 1;
+    }
+
+    // Check Space
+    if (size + prefix_len + 1 > buffer_size) { 
+        return 0;  
+    }
+
+    // Base prefixes plus length
+    if (base == 2) {
+        buffer[0] = '0';
+        buffer[1] = 'b';
+    } else if (base == 16) {
+        buffer[0] = '0';
+        buffer[1] = 'x';
+    } else if (base == 8) {
+        buffer[0] = '0';
     }
 
     // Conversion formula plus reverse
@@ -25,17 +80,6 @@ size_t int_to_string(unsigned value, int base, char buffer[], size_t buffer_size
         stored_base[size - i - 1] = value % base;
         value = value / base;
         i++;
-    }
-
-    // Base prefixes plus length
-    if (base == 2) {
-        buffer[0] = '0';
-        buffer[1] = 'b';
-        prefix_len = 2;
-    } else if (base == 16) {
-        buffer[0] = '0';
-        buffer[1] = 'x';
-        prefix_len = 2;
     }
 
     // Conversion from int to char
@@ -46,28 +90,10 @@ size_t int_to_string(unsigned value, int base, char buffer[], size_t buffer_size
             buffer[prefix_len + j] = stored_base[j] - 10 + 'a';  // Base 16 
     }
 
-    // Adiciona o terminador nulo
     buffer[prefix_len + size] = '\0';
 
     
-    printf("Base %d: %s\n", base, buffer);
+    //printf("Base %d: %s\n", base, buffer);
 
     return size + prefix_len;  // Return total string size
-}
-
-int main() {
-    unsigned value;
-    char buffer[33];  // Buffer for string (32 bits + \0)
-    int base;
-
-    printf("Digite um número inteiro: ");
-    scanf("%u", &value);
-
-    printf("Digite a base (2, 8, 10, 16): ");
-    scanf("%d", &base);
-
-    
-    int_to_string(value, base, buffer, sizeof(buffer));
-
-    return 0;
 }
