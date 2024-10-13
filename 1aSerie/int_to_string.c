@@ -43,7 +43,6 @@ size_t int_to_string(unsigned value, int base, char buffer[], size_t buffer_size
                     return 1;
                 }
             }
-            return 0; 
         }
 
     // String size calc
